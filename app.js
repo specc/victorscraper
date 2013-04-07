@@ -90,7 +90,7 @@ var WebScraper = (function() {
 
 })();
 
-var job = new cronJob('0 25 21 * * *', function(){
+var job = new cronJob('0 45 21 * * *', function(){
   WebScraper.fetch()
 });
 

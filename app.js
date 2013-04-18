@@ -1,7 +1,6 @@
 /*
 Required Libraries 
 */
-var _ = require('underscore')._;
 var express = require('express');
 var request = require('request');
 var cheerio = require('cheerio');
@@ -43,6 +42,10 @@ var WebScraper = (function() {
 	  article.date = new Date().toString();	
   };			
   var fetchTargets = function() {
+  	// clear the context and links 
+  	var article.context = "";
+  	var article.links = [];
+  	
    	var todayDate = new Date();
 		var fileName = todayDate.getMonth()+1 +"-"+todayDate.getDate()+".txt";
 		article.name = fileName;

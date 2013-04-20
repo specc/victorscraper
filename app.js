@@ -51,7 +51,6 @@ var WebScraper = (function() {
    	var todayDate = new Date();
 		var fileName = todayDate.getMonth()+1 +"-"+todayDate.getDate()+".txt";
 		article.name = fileName;
-    console.log(fileName);    
 
     request({ uri: 'http://mainichi.jp/feature/maisho/' }, function (error, response, body) {
       if (error && response.statusCode !== 200) {
@@ -70,7 +69,11 @@ var WebScraper = (function() {
             console.log('Error when contacting target');
           }
           $ = cheerio.load(body);
-          article.context = article.context + "===================================================== \r \n" +  $("h1.NewsTitle").text() + '\r\n' +$("p.Credit").text() + '\r\n' + $("div.NewsBody").text() + '\r\n';
+          article.context = article.context +
+                            '====Article '+ index +'======================================= \r \n' +
+                            $("h1.NewsTitle").text() + '\r\n' +
+                            $("p.Credit").text() + '\r\n' + 
+                            $("div.NewsBody").text() + '\r\n';
           if(lastLink === true){
             WebScraper.sendEmail();                
           }
@@ -98,7 +101,7 @@ app.get('/status', function(req, res) {
 
 app.get('/trigger', function(req, res) {
   WebScraper.fetch();
-	res.send(WebScraper.article);
+  res.send(WebScraper.article);
 });
 
 
